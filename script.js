@@ -8,53 +8,58 @@ document.addEventListener("submit", (e) => {
     e.preventDefault();
     errorDisplay("#firstName");
     document.querySelector(".error1").innerHTML = "First Name cannot be empty";
-    document.querySelector("#firstName").addEventListener("click",()=>{
-        resetError("#firstName",1);
-    })
+    document.querySelector("#firstName").addEventListener("click", () => {
+      resetError("#firstName", 1);
+    });
   }
   if (lastName.value == "") {
     e.preventDefault();
     errorDisplay("#lastName");
     document.querySelector(".error2").innerHTML = "Last Name cannot be empty";
-    document.querySelector("#lastName").addEventListener("click",()=>{
-        resetError("#lastName",2);
-    })
+    document.querySelector("#lastName").addEventListener("click", () => {
+      resetError("#lastName", 2);
+    });
   }
+
+  const validEmail = (email) => {
+    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  };
+
   if (email.value == "") {
     e.preventDefault();
     errorDisplay("#email");
     document.querySelector(".error3").innerHTML = "Email cannot be empty";
-    document.querySelector("#email").addEventListener("click",()=>{
-        resetError("#email",3);
-    })
-  }
-  else if(!email.value.includes("@")){
+    document.querySelector("#email").addEventListener("click", () => {
+      resetError("#email", 3);
+    });
+  } else if (!validEmail(email.value)) {
     e.preventDefault();
     errorDisplay("#email");
-    document.querySelector(".error3").innerHTML = "Email must include '@'";
-    document.querySelector("#email").addEventListener("click",()=>{
-        resetError("#email",3);
-    })
+    document.querySelector(".error3").innerHTML = "Email is incorrect";
+    document.querySelector("#email").addEventListener("click", () => {
+      resetError("#email", 3);
+    });
   }
+
   if (password.value == "") {
     e.preventDefault();
     errorDisplay("#password");
     document.querySelector(".error4").innerHTML = "Password cannot be empty";
-    document.querySelector("#password").addEventListener("click",()=>{
-        resetError("#password",4);
-    })
+    document.querySelector("#password").addEventListener("click", () => {
+      resetError("#password", 4);
+    });
   }
 });
 
-function errorDisplay(id,n){
-    document.querySelector(id).classList.add("errorImage");
-    document.querySelector(id).classList.add("errorInput");
-    document.querySelector(id).classList.add("shake-horizontal");
+function errorDisplay(id, n) {
+  document.querySelector(id).classList.add("errorImage");
+  document.querySelector(id).classList.add("errorInput");
+  document.querySelector(id).classList.add("shake-horizontal");
 }
 
-function resetError(id,n){
-    document.querySelector(id).classList.remove("errorImage");
-    document.querySelector(".error"+n).innerHTML = "";
-    document.querySelector(id).classList.remove("errorInput");
-    document.querySelector(id).classList.remove("shake-horizontal");
+function resetError(id, n) {
+  document.querySelector(id).classList.remove("errorImage");
+  document.querySelector(".error" + n).innerHTML = "";
+  document.querySelector(id).classList.remove("errorInput");
+  document.querySelector(id).classList.remove("shake-horizontal");
 }
