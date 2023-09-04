@@ -41,10 +41,32 @@ document.addEventListener("submit", (e) => {
     });
   }
 
+  const validPassword = (password) => {
+    const symbols = /[~!@#$%^&*]/.test(password);
+    const nums = /[0-9]/.test(password);
+    return symbols&&nums;
+  }
+
   if (password.value == "") {
     e.preventDefault();
     errorDisplay("#password");
     document.querySelector(".error4").innerHTML = "Password cannot be empty";
+    document.querySelector("#password").addEventListener("click", () => {
+      resetError("#password", 4);
+    });
+  }
+  else if(password.value.length < 7){
+    e.preventDefault();
+    errorDisplay("#password");
+    document.querySelector(".error4").innerHTML = "Password cannot be less than 7";
+    document.querySelector("#password").addEventListener("click", () => {
+      resetError("#password", 4);
+    });
+  }
+  else if(!validPassword(password.value)){
+    e.preventDefault();
+    errorDisplay("#password");
+    document.querySelector(".error4").innerHTML = "Password must contain a letter and a symbol";
     document.querySelector("#password").addEventListener("click", () => {
       resetError("#password", 4);
     });
